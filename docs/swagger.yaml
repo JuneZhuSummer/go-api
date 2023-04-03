@@ -1,0 +1,39 @@
+basePath: /api
+definitions:
+  http.RetMsg:
+    properties:
+      data: {}
+      errcode:
+        type: integer
+      msg:
+        type: string
+    type: object
+  response.HelloResponse:
+    properties:
+      word:
+        type: string
+    type: object
+host: api.xxx.com
+info:
+  contact: {}
+  description: 接口文档
+  title: 接口文档
+  version: 1.0.0
+paths:
+  /hello:
+    get:
+      description: 你好
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.RetMsg'
+            - properties:
+                data:
+                  $ref: '#/definitions/response.HelloResponse'
+              type: object
+      summary: 你好
+      tags:
+      - Hello
+swagger: "2.0"

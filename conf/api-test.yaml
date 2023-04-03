@@ -1,0 +1,52 @@
+server:
+  debug: true
+  log: true
+  addr: "0.0.0.0:8866"
+
+log:
+  name: "api"
+  max_size: 256
+  max_backup: 20
+  # debug -1, info 0, warn 1, error 2, dPanic 3, panic 4, fatal 5
+  level: -1
+  max_day: 15
+
+db:
+  mysql:
+    api:
+      host: 127.0.0.1
+      port: 3306
+      username: root
+      password: 123456
+      schema: api
+      charset: utf8mb4
+      location: Asia%2FShanghai
+      timeout: 10
+      parse_time: true
+      max_open_conn: 20
+      max_idle_conn: 10
+      conn_max_lifetime: 3600
+
+cache:
+  redis:
+    api:
+      host: 127.0.0.1
+      port: 6379
+      password: 123456
+      dail_timeout: 10
+      support_db:
+        - 0
+        - 1
+        - 2
+
+#告警配置
+alarm:
+  #钉钉
+  dingtalk:
+    webhook: "https://www.dingtalk.com/"
+  #飞书
+  larksuite:
+    webhook: "https://www.larksuite.com/"
+  #企业微信
+  wechat:
+    webhook: "https://www.wechat.com/"

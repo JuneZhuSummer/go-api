@@ -1,0 +1,64 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "接口文档",
+        "title": "接口文档",
+        "contact": {},
+        "version": "1.0.0"
+    },
+    "host": "api.xxx.com",
+    "basePath": "/api",
+    "paths": {
+        "/hello": {
+            "get": {
+                "description": "你好",
+                "tags": [
+                    "Hello"
+                ],
+                "summary": "你好",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/http.RetMsg"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/response.HelloResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "http.RetMsg": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "errcode": {
+                    "type": "integer"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "response.HelloResponse": {
+            "type": "object",
+            "properties": {
+                "word": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
