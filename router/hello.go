@@ -1,14 +1,13 @@
 package router
 
 import (
-	"go-api/pkg/http"
-
 	"github.com/gin-gonic/gin"
+	"go-api/middleware"
 )
 
 func (r *Router) setHelloRouter(router *gin.RouterGroup) {
 
 	router.Use()
-	router.GET("hello", http.Binding(r.helloHandler.Hello))
+	router.GET("hello", middleware.Binding(r.helloHandler.Hello))
 
 }

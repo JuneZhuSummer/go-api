@@ -1,8 +1,9 @@
-package http
+package middleware
 
 import (
 	"go-api/errors"
 	"go-api/internal/types/request"
+	http2 "go-api/pkg/http"
 	"go-api/pkg/log"
 	"net/http"
 	"reflect"
@@ -10,7 +11,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type BindingFunc[TReq request.IRequest[TReq], TResp any] func(ctx *gin.Context, req *TReq) (resp TResp, status *Status)
+type BindingFunc[TReq request.IRequest[TReq], TResp any] func(ctx *gin.Context, req *TReq) (resp TResp, status *http2.Status)
 
 func Binding[TReq request.IRequest[TReq], TResp any](binding BindingFunc[TReq, TResp]) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
@@ -21,7 +22,7 @@ func Binding[TReq request.IRequest[TReq], TResp any](binding BindingFunc[TReq, T
 		req, err := reqT.Validate(ctx)
 		if err != nil {
 			log.Zap().Debugf("requestUrl: %s, validate err: %s", ctx.Request.URL.String(), err)
-			AbortWithError(ctx, &Status{
+			http2.AbortWithError(ctx, &http2.Status{
 				HttpStatus: http.StatusOK,
 				ErrorCode:  errors.ErrorParamInvalid,
 				ErrorMsg:   "",
@@ -30,7 +31,7 @@ func Binding[TReq request.IRequest[TReq], TResp any](binding BindingFunc[TReq, T
 		}
 		if req == nil {
 			log.Zap().Debugf("requestUrl: %s, req nil: %s", ctx.Request.URL.String(), reflect.TypeOf(reqT).String())
-			AbortWithError(ctx, &Status{
+			http2.AbortWithError(ctx, &http2.Status{
 				HttpStatus: http.StatusOK,
 				ErrorCode:  errors.ErrorUnknown,
 				ErrorMsg:   "",
@@ -41,7 +42,7 @@ func Binding[TReq request.IRequest[TReq], TResp any](binding BindingFunc[TReq, T
 		data, status := binding(ctx, req)
 
 		if status == nil {
-			status = &Status{
+			status = &http2.Status{
 				HttpStatus: http.StatusOK,
 				ErrorCode:  errors.ErrorUnknown,
 				ErrorMsg:   "",
@@ -49,9 +50,9 @@ func Binding[TReq request.IRequest[TReq], TResp any](binding BindingFunc[TReq, T
 		}
 
 		if status.ErrorCode != errors.StatusSuccess {
-			RetError(ctx, data, status)
+			http2.RetError(ctx, data, status)
 		} else {
-			Ret(ctx, data)
+			http2.Ret(ctx, data)
 		}
 	}
 }
