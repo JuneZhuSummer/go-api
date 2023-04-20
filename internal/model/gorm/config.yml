@@ -1,6 +1,6 @@
 base:
   is_dev : false
-out_dir : .  # 输出目录
+out_dir : ./model  # 输出目录
 url_tag : json # web url tag(json,db(https://github.com/google/go-querystring))
 language :  # 语言(English,中 文)
 db_tag : gorm # 数据库标签名(gorm,db)
@@ -23,7 +23,7 @@ is_out_page: false # 是否输出分页函数
 db_info:
   host: 127.0.0.1 # type=1的时候，host为yml文件全路径
   port: 3306
-  username: api
+  username: root
   password: june0719.master
   database: api
   type: 0 # 数据库类型:0:mysql , 1:sqlite , 2:mssql
@@ -33,5 +33,5 @@ self_type_define: # 自定义数据类型映射
   date: time.Time
   decimal: string
   ^(int)[(]\d+[)]: int
-out_file_name: "" # 自定义生成文件名
+out_file_name: "api" # 自定义生成文件名
 web_tag_type: 1 # json tag类型 0: 小驼峰 1: 下划线

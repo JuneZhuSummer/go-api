@@ -7,11 +7,11 @@ var ErrorCodeMessage = map[int]string{
 
 const (
 	StatusSuccess = 0
-	ErrorUnknown  = 500000
+	ErrorUnknown  = -1
 )
 
 // 后端基础错误
 
 const (
-	ErrorParamInvalid = 100000
+	ErrorParamInvalid = 100001
 )

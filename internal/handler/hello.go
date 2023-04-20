@@ -21,11 +21,12 @@ func NewHelloHandler(helloLogic logic.HelloLogic) *HelloHandler {
 }
 
 // Hello
-// @Summary 你好
-// @Description 你好
-// @Tags Hello
-// @Success 200 {object} http.RetMsg{data=response.HelloResponse}
-// @Router /hello [GET]
+//
+//	@Summary		你好
+//	@Description	你好
+//	@Tags			Hello
+//	@Success		200	{object}	http.RetMsg{data=response.HelloResponse}
+//	@Router			/hello [GET]
 func (h *HelloHandler) Hello(ctx *gin.Context, req *request.HelloRequest) (resp *response.HelloResponse, status *http.Status) {
 	resp, errCode := h.helloLogic.HelloAPI()
 	if errCode != errors.StatusSuccess {

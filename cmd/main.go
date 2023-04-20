@@ -15,12 +15,12 @@ import (
 	"time"
 )
 
-// @title 接口文档
-// @version 1.0.0
-// @description 接口文档
+//	@title			接口文档
+//	@version		1.0.0
+//	@description	接口文档
 
-// @host api.xxx.com
-// @BasePath /api
+//	@host		api.xxx.com
+//	@BasePath	/api
 
 var (
 	env string
