@@ -11,6 +11,7 @@ thread-2000:    并发线程数设置为2000
   - result      存放测试结果txt
   - webreport   测试结果可视化页面
   - hello.jmx   Jmeter测试配置文件
+  - report.png  测试报告截图
 ```
 
 ## Note
