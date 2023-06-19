@@ -20,7 +20,7 @@
       </ENTRIES>
     </EXTENSION>
     <kind value="PACKAGE" />
-    <package value="go-api/cmd" />
+    <package value="go-api/cmd/api" />
     <directory value="$PROJECT_DIR$" />
     <filePath value="$PROJECT_DIR$/cmd/main.go" />
     <output_directory value="$PROJECT_DIR$/bin" />

@@ -26,7 +26,7 @@ var (
 	dbOnce sync.Once
 )
 
-func InitData() {
+func InitGorm() {
 	if dbMap == nil {
 		dbOnce.Do(func() {
 			initDBMap()

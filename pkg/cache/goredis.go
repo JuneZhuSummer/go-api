@@ -20,7 +20,7 @@ const (
 	RedisDefaultAlias = "api"
 )
 
-func InitCache() {
+func InitGoRedis() {
 	if redisMap == nil {
 		redisOnce.Do(func() {
 			initRedis()

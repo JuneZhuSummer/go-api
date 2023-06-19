@@ -1,6 +1,7 @@
 package log
 
 import (
+	"go-api/pkg/app"
 	"go-api/pkg/config"
 	"os"
 	"sync"
@@ -25,7 +26,7 @@ var (
 	zapOnce sync.Once
 )
 
-func init() {
+func InitZap() {
 	zapOnce.Do(func() {
 		zapMap = sync.Map{}
 	})
@@ -41,7 +42,7 @@ func GetZap(filename string) *zap.SugaredLogger {
 		return zapper.(*zap.SugaredLogger)
 	}
 
-	filepath := config.ApiPath + DefaultLogPath
+	filepath := app.APP.Path + DefaultLogPath
 
 	if filename == "" {
 		filename = config.Configs.Log.Name

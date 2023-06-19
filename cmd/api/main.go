@@ -4,6 +4,7 @@ import (
 	"context"
 	"flag"
 	_ "go-api/docs"
+	"go-api/pkg/app"
 	"go-api/pkg/cache"
 	"go-api/pkg/config"
 	"go-api/pkg/data"
@@ -31,26 +32,30 @@ var (
 )
 
 func init() {
-	flag.StringVar(&env, "env", "prod", "obtain the current environment parameters e.g. 'prod','test','dev'")
+	flag.StringVar(&env, "env", "dev", "obtain the current environment parameters e.g. 'prod','test','dev'")
 }
 
 func main() {
 	flag.Parse()
 
-	config.InitViper(env)
-	data.InitData()
-	cache.InitCache()
+	//基础模块加载
+	//搭建框架时，考虑到各个功能组件不一定要和项目强绑定，未使用wire以注入方式使组件对象实例化
+	app.Init(env)
+	config.InitViper()
+	log.InitZap()
+	data.InitGorm()
+	cache.InitGoRedis()
 
 	signal.Notify(signalChan, os.Interrupt, syscall.SIGTERM)
 	go gracefulShutdown()
 
-	app, cancel, err := initServer()
+	srv, cancel, err := initServer()
 	defer cancel()
 	if err != nil {
 		panic(err)
 	}
 
-	server = app.Start()
+	server = srv.Start()
 	log.Zap().Infof("API Server start at %s", server.Addr)
 	if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		log.Zap().Fatalf("start gamefi openapi server failed, err: %s", err)

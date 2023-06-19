@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"go-api/pkg/app"
 
 	"github.com/spf13/viper"
 )
@@ -18,10 +19,10 @@ var (
 	Configs *Config
 )
 
-func InitViper(env string) {
-	filename := fmt.Sprintf("%s-%s", defaultConfigFilename, env)
-	Viper.AddConfigPath(ApiPath + defaultConfigFilePath)
-	Viper.SetConfigFile(ApiPath + defaultConfigFilePath + filename + "." + defaultConfigFileType)
+func InitViper() {
+	filename := fmt.Sprintf("%s-%s", defaultConfigFilename, app.APP.ENV)
+	Viper.AddConfigPath(app.APP.Path + defaultConfigFilePath)
+	Viper.SetConfigFile(app.APP.Path + defaultConfigFilePath + filename + "." + defaultConfigFileType)
 	Viper.SetConfigType(defaultConfigFileType)
 	if err := Viper.ReadInConfig(); err != nil {
 		panic(err)
