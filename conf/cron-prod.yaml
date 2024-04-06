@@ -1,0 +1,14 @@
+server:
+  debug: true
+  log: true
+  addr: "0.0.0.0:8899"
+
+log:
+  name: "cron"
+  max_size: 256
+  max_backup: 20
+  # debug -1, info 0, warn 1, error 2, dPanic 3, panic 4, fatal 5
+  level: -1
+  max_day: 15
+
+foo: bar

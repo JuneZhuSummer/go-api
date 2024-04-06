@@ -13,24 +13,44 @@ const (
 	defaultConfigFileType = "yaml"
 )
 
-var (
-	Viper = viper.New()
-
-	Configs *Config
-)
+var Configs *Config
 
 func InitViper() {
+	v := viper.New()
+
 	filename := fmt.Sprintf("%s-%s", defaultConfigFilename, app.APP.ENV)
-	Viper.AddConfigPath(app.APP.Path + defaultConfigFilePath)
-	Viper.SetConfigFile(app.APP.Path + defaultConfigFilePath + filename + "." + defaultConfigFileType)
-	Viper.SetConfigType(defaultConfigFileType)
-	if err := Viper.ReadInConfig(); err != nil {
+	v.AddConfigPath(app.APP.Path + defaultConfigFilePath)
+	v.SetConfigFile(app.APP.Path + defaultConfigFilePath + filename + "." + defaultConfigFileType)
+	v.SetConfigType(defaultConfigFileType)
+	if err := v.ReadInConfig(); err != nil {
 		panic(err)
 	}
 
-	if err := Viper.Unmarshal(&Configs); err != nil {
+	if err := v.Unmarshal(&Configs); err != nil {
 		panic(err)
 	}
+}
+
+func InitCustomViper(name string, fileType string) *viper.Viper {
+	newViper := viper.New()
+
+	filename := fmt.Sprintf("%s-%s", name, app.APP.ENV)
+
+	if fileType == "" {
+		fileType = defaultConfigFileType
+	}
+	newViper.AddConfigPath(app.APP.Path + defaultConfigFilePath)
+	newViper.SetConfigFile(app.APP.Path + defaultConfigFilePath + filename + "." + fileType)
+	newViper.SetConfigType(fileType)
+
+	if err := newViper.ReadInConfig(); err != nil {
+		panic(err)
+	}
+
+	if err := newViper.Unmarshal(&Configs); err != nil {
+		panic(err)
+	}
+	return newViper
 }
 
 // Config 总配置
