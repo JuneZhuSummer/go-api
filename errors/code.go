@@ -15,3 +15,7 @@ const (
 const (
 	ErrorParamInvalid = 100001
 )
+
+const (
+	ErrorUserNotExist = 200001
+)

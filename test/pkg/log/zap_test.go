@@ -1,13 +1,15 @@
 package log
 
 import (
+	"go-api/pkg/app"
 	config2 "go-api/pkg/config"
 	log2 "go-api/pkg/log"
 	"testing"
 )
 
 func TestZap(t *testing.T) {
-	config2.InitViper("dev")
+	app.Init("dev")
+	config2.InitViper()
 
 	log2.Zap().Infof("%s", "这是默认日志")
 	log2.Zap().Errorf("%s", "这是错误日志")
