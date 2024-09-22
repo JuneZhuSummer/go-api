@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="cron" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="local">
+    <module name="go-api" />
+    <working_directory value="$PROJECT_DIR$/bin" />
+    <parameters value="-env prod" />
+    <kind value="PACKAGE" />
+    <package value="go-api/cmd/cron" />
+    <directory value="$PROJECT_DIR$" />
+    <filePath value="$PROJECT_DIR$/cmd/cron/main.go" />
+    <output_directory value="$PROJECT_DIR$/bin" />
+    <method v="2" />
+  </configuration>
+</component>

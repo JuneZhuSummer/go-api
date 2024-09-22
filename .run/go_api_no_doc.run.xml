@@ -2,7 +2,7 @@
   <configuration default="false" name="go_api_no_doc" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="local">
     <module name="go-api" />
     <working_directory value="$PROJECT_DIR$/bin" />
-    <parameters value="env=prod" />
+    <parameters value="-env prod" />
     <EXTENSION ID="net.ashald.envfile">
       <option name="IS_ENABLED" value="false" />
       <option name="IS_SUBST" value="false" />

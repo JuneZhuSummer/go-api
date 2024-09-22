@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"flag"
+	"github.com/robfig/cron/v3"
 	"github.com/spf13/viper"
 	"go-api/pkg/app"
 	"go-api/pkg/config"
@@ -39,6 +40,17 @@ func main() {
 	logger = log.GetZap("cron")
 
 	logger.Info(CustomViper.Get("foo"))
+
+	c := cron.New()
+
+	_, err := c.AddFunc("@every 1s", func() {
+		logger.Info("Hello Go-Cron!")
+	})
+	if err != nil {
+		logger.Error(err)
+	}
+
+	c.Start()
 
 	signal.Notify(signalChan, os.Interrupt, syscall.SIGTERM)
 	go gracefulShutdown()
