@@ -109,13 +109,13 @@ func initZap(path string, maxSize, maxBackups, maxDay int, logLevel zapcore.Leve
 	}
 
 	coreInfo := zapcore.NewCore(
-		zapcore.NewConsoleEncoder(zapcore.EncoderConfig{
-			TimeKey:       "T",
-			LevelKey:      "L",
-			NameKey:       "N",
-			CallerKey:     "C",
-			MessageKey:    "M",
-			StacktraceKey: "S",
+		zapcore.NewJSONEncoder(zapcore.EncoderConfig{
+			TimeKey:       "ts",
+			LevelKey:      "level",
+			NameKey:       "name",
+			CallerKey:     "caller",
+			MessageKey:    "message",
+			StacktraceKey: "trace",
 			LineEnding:    zapcore.DefaultLineEnding,
 			EncodeLevel:   zapcore.CapitalLevelEncoder,
 			EncodeTime: func(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
@@ -128,13 +128,13 @@ func initZap(path string, maxSize, maxBackups, maxDay int, logLevel zapcore.Leve
 		zap.NewAtomicLevelAt(logLevel),
 	)
 	coreError := zapcore.NewCore(
-		zapcore.NewConsoleEncoder(zapcore.EncoderConfig{
-			TimeKey:       "T",
-			LevelKey:      "L",
-			NameKey:       "N",
-			CallerKey:     "C",
-			MessageKey:    "M",
-			StacktraceKey: "S",
+		zapcore.NewJSONEncoder(zapcore.EncoderConfig{
+			TimeKey:       "ts",
+			LevelKey:      "level",
+			NameKey:       "name",
+			CallerKey:     "caller",
+			MessageKey:    "message",
+			StacktraceKey: "trace",
 			LineEnding:    zapcore.DefaultLineEnding,
 			EncodeLevel:   zapcore.CapitalLevelEncoder,
 			EncodeTime: func(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
