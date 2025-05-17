@@ -3,6 +3,7 @@ package app
 import (
 	"os"
 	"path/filepath"
+	"syscall"
 )
 
 var (
@@ -34,5 +35,16 @@ func Init(env string) {
 		Hostname: hostname,
 		Path:     dir[:len(dir)-1],
 		FileName: file,
+	}
+}
+
+func GracefulShutdown(quit <-chan os.Signal, f func()) {
+	select {
+	case msg := <-quit:
+		switch msg {
+		case syscall.SIGHUP, syscall.SIGINT, syscall.SIGQUIT, syscall.SIGKILL, syscall.SIGTERM:
+			f()
+		}
+		os.Exit(0)
 	}
 }

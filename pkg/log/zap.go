@@ -29,6 +29,7 @@ var (
 func InitZap() {
 	zapOnce.Do(func() {
 		zapMap = sync.Map{}
+		initPanicLog()
 	})
 }
 

@@ -29,15 +29,16 @@ var (
 
 func init() {
 	flag.StringVar(&env, "env", "dev", "obtain the current environment parameters e.g. 'prod','test','dev'")
-}
 
-func main() {
 	flag.Parse()
 
 	app.Init(env)
 	CustomViper = config.InitCustomViper("cron", "")
 	log.InitZap()
 	logger = log.GetZap("cron")
+}
+
+func main() {
 
 	logger.Info(CustomViper.Get("foo"))
 
@@ -53,7 +54,7 @@ func main() {
 	c.Start()
 
 	signal.Notify(signalChan, os.Interrupt, syscall.SIGTERM)
-	go gracefulShutdown()
+	go app.GracefulShutdown(signalChan, Shutdown)
 
 	for {
 		select {
@@ -61,19 +62,11 @@ func main() {
 			logger.Info("Hello Cron!")
 		}
 	}
-
 }
 
-func gracefulShutdown() {
-	select {
-	case msg := <-signalChan:
-		switch msg {
-		case syscall.SIGHUP, syscall.SIGINT, syscall.SIGQUIT, syscall.SIGKILL, syscall.SIGTERM:
-			logger.Info("Cron Shutdown......")
-			_, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-			defer cancel()
-		}
-		ticker.Stop()
-		os.Exit(0)
-	}
+func Shutdown() {
+	logger.Info("Cron Shutdown......")
+	_, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	ticker.Stop()
 }

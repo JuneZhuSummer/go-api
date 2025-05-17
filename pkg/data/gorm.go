@@ -95,14 +95,21 @@ type Logger struct {
 }
 
 func (t *Logger) LogMode(logger.LogLevel) logger.Interface {
-	return nil
+	return &Logger{}
 }
+
 func (t *Logger) Info(c context.Context, s string, i ...interface{}) {
+	log.GetZap(GormLogName).Infof(s, i)
 }
+
 func (t *Logger) Warn(c context.Context, s string, i ...interface{}) {
+	log.GetZap(GormLogName).Warnf(s, i)
 }
+
 func (t *Logger) Error(c context.Context, s string, i ...interface{}) {
+	log.GetZap(GormLogName).Errorf(s, i)
 }
+
 func (t *Logger) Trace(c context.Context, begin time.Time, fc func() (sql string, rowsAffected int64), err error) {
 	s, r := fc()
 	log.GetZap(GormLogName).Debugf("%dms, sql: %s rowsAffected: %d", time.Now().Sub(begin).Milliseconds(), s, r)
