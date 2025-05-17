@@ -34,7 +34,7 @@ cache:
       attr:
         host: 127.0.0.1
         port: 6379
-        password: 123456
+        password: 
         dail_timeout: 10
         support_db:
           - 0

@@ -9,7 +9,7 @@ import (
 
 const (
 	defaultConfigFilePath = "/../conf/"
-	defaultConfigFilename = "api"
+	defaultConfigFileDir  = "api"
 	defaultConfigFileType = "yaml"
 )
 
@@ -18,7 +18,7 @@ var Configs *Config
 func InitViper() {
 	v := viper.New()
 
-	filename := fmt.Sprintf("%s-%s", defaultConfigFilename, app.APP.ENV)
+	filename := fmt.Sprintf("%s/%s", defaultConfigFileDir, app.APP.ENV)
 	v.AddConfigPath(app.APP.Path + defaultConfigFilePath)
 	v.SetConfigFile(app.APP.Path + defaultConfigFilePath + filename + "." + defaultConfigFileType)
 	v.SetConfigType(defaultConfigFileType)
@@ -31,10 +31,10 @@ func InitViper() {
 	}
 }
 
-func InitCustomViper(name string, fileType string) *viper.Viper {
+func InitCustomViper(dir string, fileType string) *viper.Viper {
 	newViper := viper.New()
 
-	filename := fmt.Sprintf("%s-%s", name, app.APP.ENV)
+	filename := fmt.Sprintf("%s/%s", dir, app.APP.ENV)
 
 	if fileType == "" {
 		fileType = defaultConfigFileType
