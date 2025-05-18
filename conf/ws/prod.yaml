@@ -1,0 +1,5 @@
+server:
+  debug: true
+  log: true
+  addr: "0.0.0.0:6601"
+  path: "/ws/v1"

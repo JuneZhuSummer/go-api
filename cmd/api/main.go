@@ -46,7 +46,7 @@ func init() {
 }
 
 func main() {
-	signal.Notify(signalChan, os.Interrupt, syscall.SIGTERM)
+	signal.Notify(signalChan, syscall.SIGHUP, syscall.SIGINT, syscall.SIGQUIT, syscall.SIGKILL, syscall.SIGTERM)
 	go app.GracefulShutdown(signalChan, Shutdown)
 
 	srv, cancel, err := initServer()
